@@ -1,0 +1,79 @@
+{% extends "base.html" %} {% block title %} Dashboard {% endblock %} {% block
+content %}
+
+<div class="dashboard-header glass-card">
+  <div>
+    <h1>Welcome Back, {{session.username}} 👋</h1>
+
+    <p>Manage your daily tasks smarter.</p>
+  </div>
+
+  <a href="/" class="add-btn"> + Add Todo </a>
+</div>
+
+<div class="stats-container">
+  <div class="stat-card">
+    <h5>Total Todos</h5>
+    <h1>{{total_todos}}</h1>
+  </div>
+
+  <div class="stat-card">
+    <h5>Completed</h5>
+    <h1>{{completed_todos}}</h1>
+  </div>
+
+  <div class="stat-card">
+    <h5>Pending</h5>
+    <h1>{{pending_todos}}</h1>
+  </div>
+</div>
+
+<div class="glass-card todo-section progress-section">
+  <h2>Task Progress</h2>
+
+  <div class="progress mt-3" style="height: 25px">
+    <div
+      class="progress-bar bg-success"
+      role="progressbar"
+      style="width: {{progress}}%;"
+    >
+      {{progress}}%
+    </div>
+  </div>
+</div>
+<div class="recent-section">
+  <h2 class="recent-title">Recent Todos</h2>
+
+  <div class="todo-grid">
+    {% for todo in recent_todos %}
+    <div class="todo-card">
+      {% if todo.completed %}
+
+      <h4 class="completed-todo">{{todo.title}} ✅</h4>
+
+      <span class="badge bg-success"> Completed </span>
+
+      {% else %}
+
+      <h4>{{todo.title}}</h4>
+
+      <span class="badge bg-warning"> Pending </span>
+
+      {% endif %}
+
+      <p>{{todo.desc}}</p>
+
+      <span> {{todo.date_created}} </span>
+    </div>
+    {% else %}
+
+    <div class="empty-box">
+      <h4>No Todo Added Yet 🚀</h4>
+      <p>Add your first task and start managing your day.</p>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

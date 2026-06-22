@@ -1,0 +1,89 @@
+{% extends "base.html" %} {% block title %} Home {% endblock %} {% block content
+%}
+
+<div class="dashboard-header glass-card">
+  <div>
+    <h1>My Todo List 📝</h1>
+    <p>Manage your tasks easily</p>
+  </div>
+</div>
+
+<div class="glass-card p-4 mt-4">
+  <h3>Add New Todo</h3>
+
+  <form action="/" method="POST">
+    <input
+      type="text"
+      name="title"
+      class="form-control mb-3"
+      placeholder="Enter Todo Title"
+      required
+    />
+
+    <textarea
+      name="desc"
+      class="form-control mb-3"
+      placeholder="Enter Description"
+      required
+    ></textarea>
+
+    <button class="btn btn-dark">Add Todo</button>
+  </form>
+</div>
+
+<div class="glass-card todo-section mt-4">
+  <h3>Your Todos</h3>
+
+  <div class="todo-grid">
+    {% for todo in allTodo %}
+
+    <div class="todo-card">
+      {% if todo.completed %}
+
+      <h4 class="completed-todo">{{todo.title}} ✅</h4>
+
+      {% else %}
+
+      <h4>{{todo.title}}</h4>
+
+      {% endif %}
+
+      <p>{{todo.desc}}</p>
+
+      <small> {{todo.date_created}} </small>
+
+      <div class="todo-actions mt-3">
+        {% if todo.completed %}
+
+        <a href="/complete/{{todo.sno}}" class="btn btn-success btn-sm">
+          Completed ✅
+        </a>
+
+        {% else %}
+
+        <a href="/complete/{{todo.sno}}" class="btn btn-outline-success btn-sm">
+          Complete
+        </a>
+
+        {% endif %}
+
+        <a href="/update/{{todo.sno}}" class="btn btn-warning btn-sm"> Edit </a>
+
+        <a href="/delete/{{todo.sno}}" class="btn btn-danger btn-sm">
+          Delete
+        </a>
+      </div>
+    </div>
+
+    {% else %}
+
+    <div class="empty-box">
+      <h4>No Todo Available 🚀</h4>
+      <p>Add your first todo and start managing your tasks.</p>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

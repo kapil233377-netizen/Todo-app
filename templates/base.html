@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block title %} Todo App {% endblock %}</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="layout">
+      <div class="sidebar glass-card">
+        <h2 class="logo">Todo 🚀</h2>
+
+        {% if session.get('user_id') %}
+
+        <div class="profile">
+          <h4>{{ session.get('username') }}</h4>
+          <p>User Account</p>
+        </div>
+
+        <a href="/" class="menu-item"> 🏠 Home </a>
+
+        <a href="/dashboard" class="menu-item"> 📊 Dashboard </a>
+
+        {% endif %}
+
+        <a href="/about" class="menu-item"> ℹ️ About </a>
+
+        <a href="/contact" class="menu-item"> 📩 Contact </a>
+
+        {% if session.get('user_id') %}
+
+        <a href="/logout" class="menu-item logout"> 🚪 Logout </a>
+
+        {% else %}
+
+        <a href="/login" class="menu-item"> 🔐 Login </a>
+
+        <a href="/signup" class="menu-item"> ✨ Signup </a>
+
+        {% endif %}
+      </div>
+
+      <div class="main-content">{% block content %} {% endblock %}</div>
+    </div>
+  </body>
+</html>
